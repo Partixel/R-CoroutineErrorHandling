@@ -30,7 +30,7 @@ function CoroutineErrorHandling.ResumeWithStack(Thread, ...)
 	if not Results[1] then
 		error(Results[2], 0)
 	else
-		return unpack(Results, 2)
+		return unpack(Results)
 	end
 end
 
@@ -38,7 +38,7 @@ end
 function CoroutineErrorHandling.CoroutineWithStack(Func, ...)
 	local Thread = coroutine.create(CoroutineErrorHandling.RunFunctionWithStack)
 	Stacks[Thread] = true
-	return CoroutineErrorHandling.ResumeWithStack(Thread, Func, ...)
+	return select(2, CoroutineErrorHandling.ResumeWithStack(Thread, Func, ...))
 end
 
 return CoroutineErrorHandling
